@@ -176,8 +176,35 @@ const properties = [
   },
 ]
 
+// Define property type
+interface Property {
+  id: number
+  title: string
+  description: string
+  price: number
+  type: string
+  category: string
+  location: string
+  bedrooms: number
+  bathrooms: number
+  size: number
+  images: string[]
+  features: string[]
+  featured: boolean
+  new: boolean
+}
+
+// Define testimonial type
+interface Testimonial {
+  id: number
+  name: string
+  role: string
+  text: string
+  image: string
+}
+
 // Testimonials data
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Julia Müller",
@@ -201,8 +228,17 @@ const testimonials = [
   },
 ]
 
+// Define team member type
+interface TeamMember {
+  id: number
+  name: string
+  role: string
+  bio: string
+  image: string
+}
+
 // Team members data
-const teamMembers = [
+const teamMembers: TeamMember[] = [
   {
     id: 1,
     name: "Dr. Michael Weber",
@@ -233,8 +269,16 @@ const teamMembers = [
   },
 ]
 
+// Define location type
+interface Location {
+  id: number
+  name: string
+  count: number
+  image: string
+}
+
 // Locations data
-const locations = [
+const locations: Location[] = [
   {
     id: 1,
     name: "Berlin",
@@ -284,50 +328,6 @@ const locations = [
     image: "https://images.unsplash.com/photo-1572876755407-ad1387944ca8?q=80&w=300&auto=format&fit=crop",
   },
 ]
-
-// Define property type
-interface Property {
-  id: number
-  title: string
-  description: string
-  price: number
-  type: string
-  category: string
-  location: string
-  bedrooms: number
-  bathrooms: number
-  size: number
-  images: string[]
-  features: string[]
-  featured: boolean
-  new: boolean
-}
-
-// Define team member type
-interface TeamMember {
-  id: number
-  name: string
-  role: string
-  bio: string
-  image: string
-}
-
-// Define location type
-interface Location {
-  id: number
-  name: string
-  count: number
-  image: string
-}
-
-// Define testimonial type
-interface Testimonial {
-  id: number
-  name: string
-  role: string
-  text: string
-  image: string
-}
 
 // Property card component
 const PropertyCard = ({
