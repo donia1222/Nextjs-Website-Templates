@@ -46,7 +46,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+
 
 // Projects data
 const projects = [
@@ -1168,97 +1168,6 @@ export function ConstructionWebsite() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Häufig gestellte Fragen</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-amber-600 to-amber-800 mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Antworten auf die wichtigsten Fragen zu unseren Dienstleistungen und Bauprojekten.
-            </p>
-          </motion.div>
-
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="bg-white rounded-xl border border-gray-100 shadow-sm">
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="px-6 py-4 hover:text-amber-600">
-                  Wie läuft der Bauprozess mit BauSchweiz ab?
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-700">
-                    Unser Bauprozess beginnt mit einem ausführlichen Beratungsgespräch, in dem wir Ihre Anforderungen
-                    und Wünsche erfassen. Anschließend erstellen wir ein detailliertes Konzept mit Kostenvoranschlag.
-                    Nach Ihrer Zustimmung beginnt die Planungsphase, gefolgt von der Bauausführung. Während des gesamten
-                    Prozesses steht Ihnen ein persönlicher Projektleiter zur Verfügung, der Sie regelmäßig über den
-                    Fortschritt informiert.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="px-6 py-4 hover:text-amber-600">
-                  Welche Garantien bietet BauSchweiz?
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-700">
-                    Wir bieten umfassende Garantien für unsere Bauleistungen gemäß den Schweizer Normen und
-                    Vorschriften. Dies umfasst eine 5-jährige Garantie auf alle Bauarbeiten sowie spezifische Garantien
-                    für einzelne Bauteile und Materialien. Zusätzlich sind wir durch eine umfassende
-                    Berufshaftpflichtversicherung abgesichert, die Ihnen zusätzliche Sicherheit bietet.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="px-6 py-4 hover:text-amber-600">
-                  Wie berücksichtigt BauSchweiz Nachhaltigkeitsaspekte?
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-700">
-                    Nachhaltigkeit ist ein zentraler Bestandteil unserer Unternehmensphilosophie. Wir setzen auf
-                    energieeffiziente Bauweisen, umweltfreundliche Materialien und innovative Technologien zur
-                    Reduzierung des ökologischen Fußabdrucks. Unsere Projekte werden nach den neuesten Energiestandards
-                    geplant und umgesetzt, und wir beraten Sie gerne zu Fördermöglichkeiten für nachhaltige
-                    Baumaßnahmen.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger className="px-6 py-4 hover:text-amber-600">
-                  Arbeitet BauSchweiz in der gesamten Schweiz?
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-700">
-                    Ja, wir sind in der gesamten Schweiz tätig. Mit unserem Hauptsitz in Zürich und regionalen Büros in
-                    Bern, Basel und Luzern können wir Projekte in allen Kantonen effizient betreuen. Unser Team ist mit
-                    den lokalen Bauvorschriften und Gegebenheiten vertraut und arbeitet eng mit lokalen Behörden und
-                    Partnern zusammen.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-5">
-                <AccordionTrigger className="px-6 py-4 hover:text-amber-600">
-                  Wie werden die Kosten für ein Bauprojekt kalkuliert?
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-700">
-                    Die Kosten für ein Bauprojekt werden auf Basis Ihrer spezifischen Anforderungen, der Projektgröße,
-                    der gewünschten Materialien und der baulichen Gegebenheiten kalkuliert. Wir erstellen einen
-                    detaillierten Kostenvoranschlag, der alle Positionen transparent aufschlüsselt. Während des Projekts
-                    informieren wir Sie regelmäßig über den Kostenstand und besprechen eventuelle Änderungen frühzeitig
-                    mit Ihnen.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
-      </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-white">
