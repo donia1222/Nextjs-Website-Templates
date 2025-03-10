@@ -1,4 +1,5 @@
-### Next.js Website Templates
+# For Linux/Mac
+echo "# Next.js Website Templates
 
 Collection of modern and responsive website templates developed with Next.js. These templates include designs for:
 
@@ -7,6 +8,9 @@ Collection of modern and responsive website templates developed with Next.js. Th
 - Gyms and fitness centers
 - And more...
 
+## Demo
+
+Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates-gzm35bans-info-lwebchs-projects.vercel.app)
 
 ## Features
 
@@ -16,15 +20,46 @@ Collection of modern and responsive website templates developed with Next.js. Th
 - Image optimization with Next.js
 - Styling with Tailwind CSS
 
+## How to use
+
+1. Clone this repository
+2. Install dependencies: \`npm install\`
+3. Run the development server: \`npm run dev\`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Contributions
+
+Contributions are welcome. Please open an issue or a pull request to suggest changes or improvements." > README.md
+
+# For Windows (PowerShell)
+Set-Content -Path README.md -Value "# Next.js Website Templates
+
+Collection of modern and responsive website templates developed with Next.js. These templates include designs for:
+
+- Real estate websites
+- Elegant restaurants
+- Gyms and fitness centers
+- And more...
+
+## Demo
+
+Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates-gzm35bans-info-lwebchs-projects.vercel.app)
+
+## Features
+
+- Responsive design for all devices
+- Reusable components with shadcn/ui
+- Smooth animations with Framer Motion
+- Image optimization with Next.js
+- Styling with Tailwind CSS
 
 ## How to use
 
 1. Clone this repository
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
+2. Install dependencies: \`npm install\`
+3. Run the development server: \`npm run dev\`
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
 
 ## Contributions
 
-Contributions are welcome. Please open an issue or a pull request to suggest changes or improvements.
+Contributions are welcome. Please open an issue or a pull request to suggest changes or improvements."
