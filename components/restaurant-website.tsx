@@ -544,9 +544,8 @@ export function RestaurantWebsite() {
       <RotatingPizza />
       {/* Header */}
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+   
+
         className={cn(
           "bg-white text-gray-900 p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-md" : "",
