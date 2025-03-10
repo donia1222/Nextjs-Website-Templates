@@ -475,9 +475,7 @@ export function RestaurantWebsite() {
     <div className="bg-cream-50 min-h-screen font-sans">
       {/* Header */}
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+
         className={cn(
           "bg-white text-gray-900 p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-md" : "",

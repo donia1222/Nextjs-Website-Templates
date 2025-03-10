@@ -538,9 +538,7 @@ export function WebsitePreview() {
     <div className="bg-white h-full overflow-auto">
       {/* Header */}
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+
         className={cn(
           "bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-lg" : "",
