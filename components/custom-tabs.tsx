@@ -1,102 +1,73 @@
 "use client"
 
-import { ReactNode, useState } from "react"
-import { cn } from "@/lib/utils"
-import { Store, UtensilsCrossed } from 'lucide-react'
+import { Store, UtensilsCrossed, Dumbbell, Building2 } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-interface TabProps {
-  children: ReactNode
-  value: string
-}
+import { WebsitePreview } from "@/components/website-preview"
+import { RestaurantWebsite } from "@/components/restaurant-website"
+import { GymWebsite } from "@/components/gym-website"
+import { RealEstateWebsite } from "@/components/real-estate-website"
 
-interface TabsProps {
-  defaultValue: string
-  children: ReactNode
-  className?: string
-}
-
-export function CustomTabs({ defaultValue, children, className }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultValue)
-  
-  // Filter and find the TabsList and TabsContent components
-  const tabsList = Array.isArray(children) 
-    ? children.find((child: any) => child?.type?.displayName === 'TabsList')
-    : children
-  
-  const contents = Array.isArray(children) 
-    ? children.filter((child: any) => child?.type?.displayName === 'TabsContent')
-    : []
-
+export function CustomTabs() {
   return (
-    <div className={cn("w-full", className)}>
-      {tabsList && (
-        <div onClick={(e: any) => {
-          if (e.target.dataset.value) {
-            setActiveTab(e.target.dataset.value)
-          }
-        }}>
-          {tabsList}
-        </div>
-      )}
-      
-      {contents.map((content: any) => 
-        content?.props?.value === activeTab ? content : null
-      )}
-    </div>
+    <Tabs defaultValue="ecommerce" className="w-full">
+      <div className="container mx-auto py-8">
+        <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 p-1 rounded-xl mb-10 ">
+          <TabsTrigger
+            value="ecommerce"
+            className="flex flex-col sm:flex-row items-center gap-2 py-3 data-[state=active]:bg-purple-500 data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+          >
+            <Store className="h-4 w-4" />
+            <span className="hidden sm:inline">E-Commerce</span>
+            <span className="text-xs sm:hidden">Shop</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="restaurant"
+            className="flex flex-col sm:flex-row items-center gap-2 py-3 data-[state=active]:bg-red-800 data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+          >
+            <UtensilsCrossed className="h-4 w-4" />
+            <span className="hidden sm:inline">Restaurant</span>
+            <span className="text-xs sm:hidden">Essen</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="gym"
+            className="flex flex-col sm:flex-row items-center gap-2 py-3 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+          >
+            <Dumbbell className="h-4 w-4" />
+            <span className="hidden sm:inline">Fitness</span>
+            <span className="text-xs sm:hidden">Fitnessstudio</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="realestate"
+            className="flex flex-col sm:flex-row items-center gap-2 py-3 data-[state=active]:bg-sky-300 data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+          >
+            <Building2 className="h-4 w-4" />
+            <span className="hidden sm:inline">Immobilien</span>
+            <span className="text-xs sm:hidden">Immobilien</span>
+          </TabsTrigger>
+        </TabsList>
+      </div>
+
+      <div className="relative">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
+
+        <TabsContent value="ecommerce" className="m-0 transition-all duration-500 animate-in fade-in">
+          <WebsitePreview />
+        </TabsContent>
+
+        <TabsContent value="restaurant" className="m-0 transition-all duration-500 animate-in fade-in">
+          <RestaurantWebsite />
+        </TabsContent>
+
+        <TabsContent value="gym" className="m-0 transition-all duration-500 animate-in fade-in">
+          <GymWebsite />
+        </TabsContent>
+
+        <TabsContent value="realestate" className="m-0 transition-all duration-500 animate-in fade-in">
+          <RealEstateWebsite />
+        </TabsContent>
+      </div>
+    </Tabs>
   )
 }
 
-CustomTabs.displayName = 'CustomTabs'
-
-export function CustomTabsList({ children, className }: { children: ReactNode, className?: string }) {
-  return (
-    <div className={cn("w-full max-w-md mx-auto grid grid-cols-2 bg-gray-100 rounded-lg p-1", className)}>
-      {children}
-    </div>
-  )
-}
-
-CustomTabsList.displayName = 'TabsList'
-
-export function CustomTabsTrigger({ 
-  value, 
-  children,
-  className
-}: { 
-  value: string, 
-  children: ReactNode,
-  className?: string
-}) {
-  return (
-    <div 
-      data-value={value}
-      className={cn(
-        "flex items-center justify-center gap-2 p-2 rounded-md cursor-pointer transition-all",
-        "data-[active=true]:bg-white data-[active=true]:shadow-sm",
-        className
-      )}
-    >
-      {children}
-    </div>
-  )
-}
-
-CustomTabsTrigger.displayName = 'TabsTrigger'
-
-export function CustomTabsContent({ 
-  value, 
-  children,
-  className
-}: { 
-  value: string, 
-  children: ReactNode,
-  className?: string
-}) {
-  return (
-    <div className={cn("mt-2", className)}>
-      {children}
-    </div>
-  )
-}
-
-CustomTabsContent.displayName = 'TabsContent'
