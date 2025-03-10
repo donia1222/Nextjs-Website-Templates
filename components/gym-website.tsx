@@ -20,7 +20,6 @@ import {
   Mail,
   Check,
   Loader2,
-  ChevronRight,
   Dumbbell,
   Play,
 } from "lucide-react"
@@ -43,15 +42,52 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 
-// Training programs data
-const trainingPrograms = [
+// Definición de interfaces para evitar "any"
+interface ScheduleItem {
+  day: string
+  time: string
+}
+
+interface TrainingProgram {
+  id: number
+  name: string
+  description: string
+  duration: string
+  intensity: string
+  image: string
+  popular: boolean
+  beginner: boolean
+  schedule: ScheduleItem[]
+}
+
+interface MembershipPlan {
+  id: number
+  name: string
+  price: number
+  duration: string
+  features: string[]
+  popular: boolean
+}
+
+interface Trainer {
+  id: number
+  name: string
+  specialty: string
+  bio: string
+  image: string
+  certifications: string[]
+}
+
+// Datos de programas de entrenamiento
+const trainingPrograms: TrainingProgram[] = [
   {
     id: 1,
     name: "Krafttraining",
     description: "Bauen Sie Muskeln auf und verbessern Sie Ihre Kraft mit unserem umfassenden Krafttrainingsprogramm",
     duration: "60 min",
     intensity: "Mittel bis Hoch",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200&auto=format&fit=crop",
     popular: true,
     beginner: false,
     schedule: [
@@ -63,10 +99,12 @@ const trainingPrograms = [
   {
     id: 2,
     name: "Cardio-Fitness",
-    description: "Verbessern Sie Ihre Ausdauer und verbrennen Sie Kalorien mit unserem hochintensiven Cardio-Programm",
+    description:
+      "Verbessern Sie Ihre Ausdauer und verbrennen Sie Kalorien mit unserem hochintensiven Cardio-Programm",
     duration: "45 min",
     intensity: "Hoch",
-    image: "https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1434596922112-19c563067271?q=80&w=200&auto=format&fit=crop",
     popular: true,
     beginner: false,
     schedule: [
@@ -78,10 +116,12 @@ const trainingPrograms = [
   {
     id: 3,
     name: "Yoga & Flexibilität",
-    description: "Verbessern Sie Ihre Flexibilität, Balance und mentale Klarheit mit unseren geführten Yoga-Kursen",
+    description:
+      "Verbessern Sie Ihre Flexibilität, Balance und mentale Klarheit mit unseren geführten Yoga-Kursen",
     duration: "50 min",
     intensity: "Niedrig bis Mittel",
-    image: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=200&auto=format&fit=crop",
     popular: false,
     beginner: true,
     schedule: [
@@ -97,7 +137,8 @@ const trainingPrograms = [
       "Verbessern Sie Ihre Alltagsbewegungen und Körperfunktionalität mit diesem ganzheitlichen Trainingsprogramm",
     duration: "55 min",
     intensity: "Mittel",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=200&auto=format&fit=crop",
     popular: false,
     beginner: true,
     schedule: [
@@ -113,7 +154,8 @@ const trainingPrograms = [
       "Maximieren Sie Ihre Fettverbrennung mit unserem hochintensiven Intervalltraining in kurzen, effektiven Einheiten",
     duration: "30 min",
     intensity: "Sehr Hoch",
-    image: "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=200&auto=format&fit=crop",
     popular: true,
     beginner: false,
     schedule: [
@@ -125,10 +167,12 @@ const trainingPrograms = [
   {
     id: 6,
     name: "Anfänger Fitness",
-    description: "Der perfekte Einstieg in Ihre Fitnessreise mit grundlegenden Übungen und persönlicher Betreuung",
+    description:
+      "Der perfekte Einstieg in Ihre Fitnessreise mit grundlegenden Übungen und persönlicher Betreuung",
     duration: "45 min",
     intensity: "Niedrig",
-    image: "https://images.unsplash.com/photo-1579126038374-6064e9370f0f?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1579126038374-6064e9370f0f?q=80&w=200&auto=format&fit=crop",
     popular: false,
     beginner: true,
     schedule: [
@@ -139,8 +183,8 @@ const trainingPrograms = [
   },
 ]
 
-// Membership plans
-const membershipPlans = [
+// Datos de planes de membresía
+const membershipPlans: MembershipPlan[] = [
   {
     id: 1,
     name: "Basis",
@@ -185,14 +229,15 @@ const membershipPlans = [
   },
 ]
 
-// Trainers data
-const trainers = [
+// Datos de entrenadores
+const trainers: Trainer[] = [
   {
     id: 1,
     name: "Markus Weber",
     specialty: "Krafttraining & Bodybuilding",
     bio: "Ehemaliger Wettkampf-Bodybuilder mit über 15 Jahren Erfahrung im Krafttraining und Muskelaufbau.",
-    image: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=200&auto=format&fit=crop",
     certifications: ["IFBB Pro", "Zertifizierter Krafttrainer", "Ernährungsberater"],
   },
   {
@@ -200,7 +245,8 @@ const trainers = [
     name: "Julia Schneider",
     specialty: "Yoga & Pilates",
     bio: "Internationale Yoga-Lehrerin mit Ausbildung in Indien und über 10 Jahren Unterrichtserfahrung.",
-    image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=200&auto=format&fit=crop",
     certifications: ["RYT 500", "Pilates-Instruktorin", "Meditation Coach"],
   },
   {
@@ -208,7 +254,8 @@ const trainers = [
     name: "Thomas Müller",
     specialty: "Funktionelles Training & HIIT",
     bio: "Ehemaliger Leistungssportler und CrossFit-Athlet mit Spezialisierung auf hochintensives Intervalltraining.",
-    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=200&auto=format&fit=crop",
     certifications: ["CrossFit Level 2", "Funktioneller Trainingsexperte", "TRX-Trainer"],
   },
   {
@@ -216,19 +263,21 @@ const trainers = [
     name: "Sarah Fischer",
     specialty: "Cardio & Gewichtsmanagement",
     bio: "Spezialistin für Gewichtsmanagement und Cardio-Training mit einem Hintergrund in Sportwissenschaften.",
-    image: "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?q=80&w=200&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?q=80&w=200&auto=format&fit=crop",
     certifications: ["Sportwissenschaftlerin", "Gewichtsmanagement-Spezialistin", "Lauftrainerin"],
   },
 ]
 
-// Testimonials data
+// Datos de testimonios
 const testimonials = [
   {
     id: 1,
     name: "Michael Bauer",
     text: "Seit ich vor 6 Monaten mit dem Training begonnen habe, habe ich 15 kg abgenommen und fühle mich besser als je zuvor. Die Trainer sind erstklassig!",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop",
     membership: "Premium-Mitglied",
   },
   {
@@ -236,7 +285,8 @@ const testimonials = [
     name: "Anna Schmidt",
     text: "Die Yoga-Kurse haben meine Rückenschmerzen komplett beseitigt. Die Atmosphäre ist entspannt und die Trainer sehr aufmerksam.",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop",
     membership: "Elite-Mitglied",
   },
   {
@@ -244,12 +294,13 @@ const testimonials = [
     name: "David Wagner",
     text: "Als Anfänger war ich anfangs eingeschüchtert, aber das Team hat mich perfekt betreut. Die App zur Buchung von Kursen ist auch super praktisch!",
     rating: 4,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop",
     membership: "Basis-Mitglied",
   },
 ]
 
-// Gallery images
+// Imágenes para la galería
 const galleryImages = [
   "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=300&auto=format&fit=crop",
@@ -259,10 +310,10 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=300&auto=format&fit=crop",
 ]
 
-// Animated counter component
+// Componente contador animado
 const AnimatedCounter = ({ value, duration = 2 }: { value: number; duration?: number }) => {
   const [count, setCount] = useState(0)
-  const nodeRef = useRef(null)
+  const nodeRef = useRef<HTMLSpanElement>(null)
   const isInView = useInView(nodeRef, { once: true, amount: 0.5 })
 
   useEffect(() => {
@@ -288,7 +339,7 @@ const AnimatedCounter = ({ value, duration = 2 }: { value: number; duration?: nu
   return <span ref={nodeRef}>{count.toLocaleString()}</span>
 }
 
-// Rating stars component
+// Componente para estrellas de calificación
 const RatingStars = ({ rating }: { rating: number }) => {
   const fullStars = Math.floor(rating)
   const hasHalfStar = rating % 1 !== 0
@@ -306,8 +357,14 @@ const RatingStars = ({ rating }: { rating: number }) => {
   )
 }
 
-// Program card component
-const ProgramCard = ({ program, onBookClass }: { program: any; onBookClass: (program: any) => void }) => {
+// Componente para la tarjeta del programa
+const ProgramCard = ({
+  program,
+  onBookClass,
+}: {
+  program: TrainingProgram
+  onBookClass: (program: TrainingProgram) => void
+}) => {
   return (
     <motion.div
       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-100"
@@ -372,8 +429,14 @@ const ProgramCard = ({ program, onBookClass }: { program: any; onBookClass: (pro
   )
 }
 
-// Membership card component
-const MembershipCard = ({ plan, onSelectPlan }: { plan: any; onSelectPlan: (plan: any) => void }) => {
+// Componente para la tarjeta de membresía
+const MembershipCard = ({
+  plan,
+  onSelectPlan,
+}: {
+  plan: MembershipPlan
+  onSelectPlan: (plan: MembershipPlan) => void
+}) => {
   return (
     <motion.div
       className={cn(
@@ -387,7 +450,9 @@ const MembershipCard = ({ plan, onSelectPlan }: { plan: any; onSelectPlan: (plan
       transition={{ duration: 0.5 }}
     >
       {plan.popular && (
-        <div className="absolute top-0 right-0 bg-amber-500 text-white text-xs font-bold px-3 py-1">Beliebt</div>
+        <div className="absolute top-0 right-0 bg-amber-500 text-white text-xs font-bold px-3 py-1">
+          Beliebt
+        </div>
       )}
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
@@ -419,8 +484,8 @@ const MembershipCard = ({ plan, onSelectPlan }: { plan: any; onSelectPlan: (plan
   )
 }
 
-// Trainer card component
-const TrainerCard = ({ trainer }: { trainer: any }) => {
+// Componente para la tarjeta del entrenador
+const TrainerCard = ({ trainer }: { trainer: Trainer }) => {
   return (
     <motion.div
       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-100"
@@ -463,14 +528,14 @@ export function GymWebsite() {
   const [scrolled, setScrolled] = useState(false)
   const [bookingOpen, setBookingOpen] = useState(false)
   const [membershipOpen, setMembershipOpen] = useState(false)
-  const [selectedProgram, setSelectedProgram] = useState<any>(null)
-  const [selectedPlan, setSelectedPlan] = useState<any>(null)
+  const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null)
+  const [selectedPlan, setSelectedPlan] = useState<MembershipPlan | null>(null)
   const [bookingSuccess, setBookingSuccess] = useState(false)
   const [membershipSuccess, setMembershipSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [videoOpen, setVideoOpen] = useState(false)
 
-  const heroRef = useRef(null)
+  const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -480,7 +545,7 @@ export function GymWebsite() {
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
   const heroTextY = useTransform(scrollYProgress, [0, 1], [0, 100])
 
-  // Handle scroll effect for header
+  // Manejar efecto scroll para el header
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -489,34 +554,34 @@ export function GymWebsite() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Toggle mobile menu
+  // Alternar menú móvil
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev)
   }
 
-  // Book a class
-  const bookClass = (program: any) => {
+  // Reservar un curso
+  const bookClass = (program: TrainingProgram) => {
     setSelectedProgram(program)
     setBookingOpen(true)
   }
 
-  // Select membership plan
-  const selectPlan = (plan: any) => {
+  // Seleccionar plan de membresía
+  const selectPlan = (plan: MembershipPlan) => {
     setSelectedPlan(plan)
     setMembershipOpen(true)
   }
 
-  // Handle booking submission
+  // Manejar envío de reserva
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
+    // Simulación de llamada a API
     setTimeout(() => {
       setIsSubmitting(false)
       setBookingSuccess(true)
 
-      // Reset form after success
+      // Reiniciar formulario después del éxito
       setTimeout(() => {
         setBookingOpen(false)
         setBookingSuccess(false)
@@ -525,17 +590,17 @@ export function GymWebsite() {
     }, 1500)
   }
 
-  // Handle membership submission
+  // Manejar envío de membresía
   const handleMembershipSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
+    // Simulación de llamada a API
     setTimeout(() => {
       setIsSubmitting(false)
       setMembershipSuccess(true)
 
-      // Reset form after success
+      // Reiniciar formulario después del éxito
       setTimeout(() => {
         setMembershipOpen(false)
         setMembershipSuccess(false)
@@ -544,7 +609,7 @@ export function GymWebsite() {
     }, 1500)
   }
 
-  // Animation variants
+  // Variantes de animación
   const fadeIn = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.6 } },
@@ -587,7 +652,7 @@ export function GymWebsite() {
             <h1 className="text-2xl font-bold tracking-tight">FitnessPro</h1>
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* Navegación Desktop */}
           <nav className="hidden md:flex gap-8">
             <motion.a
               href="#home"
@@ -650,15 +715,19 @@ export function GymWebsite() {
               <span>Mitglied werden</span>
             </motion.button>
 
-            {/* Mobile Menu Button */}
-            <motion.button className="md:hidden text-gray-900" onClick={toggleMobileMenu} whileTap={{ scale: 0.9 }}>
+            {/* Botón menú móvil */}
+            <motion.button
+              className="md:hidden text-gray-900"
+              onClick={toggleMobileMenu}
+              whileTap={{ scale: 0.9 }}
+            >
               <Menu size={24} />
             </motion.button>
           </div>
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Menú Móvil */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
@@ -748,7 +817,7 @@ export function GymWebsite() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section */}
+      {/* Sección Hero */}
       <section id="home" className="relative h-[700px] overflow-hidden" ref={heroRef}>
         <motion.div className="absolute inset-0 bg-black/40 z-10" style={{ opacity: heroOpacity }}></motion.div>
         <motion.div className="absolute inset-0" style={{ scale: heroScale }}>
@@ -796,7 +865,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Quick Info Section */}
+      {/* Sección Quick Info */}
       <section className="py-12 bg-white border-t border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -851,7 +920,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Programs Section */}
+      {/* Sección Programas */}
       <section id="programs" className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
@@ -926,7 +995,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Membership Section */}
+      {/* Sección Membresías */}
       <section id="membership" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div
@@ -952,7 +1021,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Trainers Section */}
+      {/* Sección Entrenadores */}
       <section id="trainers" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
@@ -978,7 +1047,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* Sección Sobre Nosotros */}
       <section id="about" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -1039,7 +1108,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Sección Testimonios */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
@@ -1081,7 +1150,7 @@ export function GymWebsite() {
                       <p className="text-amber-500 text-sm">{testimonial.membership}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-700 italic">&quot;{testimonial.text}&quot;</p>
                   <div className="mt-4">
                     <RatingStars rating={testimonial.rating} />
                   </div>
@@ -1092,7 +1161,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Gallery Section */}
+      {/* Sección Galería */}
       <section id="gallery" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div
@@ -1131,7 +1200,7 @@ export function GymWebsite() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Sección Contacto */}
       <section id="contact" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
@@ -1250,14 +1319,14 @@ export function GymWebsite() {
         </div>
       </section>
 
-
-
-      {/* Class Booking Dialog */}
+      {/* Diálogo para reservar clase */}
       <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
         <DialogContent className="sm:max-w-[425px] bg-white max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-bold text-xl">Kurs buchen</DialogTitle>
-            <DialogDescription>{selectedProgram && `Buche deinen Platz für ${selectedProgram.name}`}</DialogDescription>
+            <DialogDescription>
+              {selectedProgram && `Buche deinen Platz für ${selectedProgram.name}`}
+            </DialogDescription>
           </DialogHeader>
 
           {bookingSuccess ? (
@@ -1278,9 +1347,9 @@ export function GymWebsite() {
                   <p className="text-sm text-gray-600 mb-3">{selectedProgram.description}</p>
                   <div className="space-y-2">
                     <p className="text-sm font-medium text-gray-700">Verfügbare Zeiten:</p>
-                    {selectedProgram.schedule.map((schedule: any, index: number) => (
+                    {selectedProgram.schedule.map((item, index) => (
                       <div key={index} className="text-sm">
-                        <span className="font-medium">{schedule.day}:</span> {schedule.time}
+                        <span className="font-medium">{item.day}:</span> {item.time}
                       </div>
                     ))}
                   </div>
@@ -1363,7 +1432,7 @@ export function GymWebsite() {
         </DialogContent>
       </Dialog>
 
-      {/* Membership Dialog */}
+      {/* Diálogo para membresía */}
       <Dialog open={membershipOpen} onOpenChange={setMembershipOpen}>
         <DialogContent className="sm:max-w-[500px] bg-white max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -1499,7 +1568,7 @@ export function GymWebsite() {
         </DialogContent>
       </Dialog>
 
-      {/* Video Dialog */}
+      {/* Diálogo para video */}
       <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
         <DialogContent className="sm:max-w-[800px] p-0 bg-black overflow-hidden max-h-[90vh]">
           <div className="relative aspect-video">
@@ -1515,4 +1584,3 @@ export function GymWebsite() {
     </div>
   )
 }
-

@@ -16,8 +16,8 @@ import {
   Phone,
   Mail,
   Calendar,
-  ChevronRight,
   ChevronLeft,
+  ChevronRight,
   Heart,
   Share2,
   Bed,
@@ -285,8 +285,55 @@ const locations = [
   },
 ]
 
+// Define property type
+interface Property {
+  id: number
+  title: string
+  description: string
+  price: number
+  type: string
+  category: string
+  location: string
+  bedrooms: number
+  bathrooms: number
+  size: number
+  images: string[]
+  features: string[]
+  featured: boolean
+  new: boolean
+}
+
+// Define team member type
+interface TeamMember {
+  id: number
+  name: string
+  role: string
+  bio: string
+  image: string
+}
+
+// Define location type
+interface Location {
+  id: number
+  name: string
+  count: number
+  image: string
+}
+
+// Define testimonial type
+interface Testimonial {
+  id: number
+  name: string
+  role: string
+  text: string
+  image: string
+}
+
 // Property card component
-const PropertyCard = ({ property, onViewDetails }: { property: any; onViewDetails: (property: any) => void }) => {
+const PropertyCard = ({
+  property,
+  onViewDetails,
+}: { property: Property; onViewDetails: (property: Property) => void }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -404,7 +451,7 @@ const PropertyCard = ({ property, onViewDetails }: { property: any; onViewDetail
 }
 
 // Team member card component
-const TeamMemberCard = ({ member }: { member: any }) => {
+const TeamMemberCard = ({ member }: { member: TeamMember }) => {
   return (
     <motion.div
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
@@ -440,7 +487,7 @@ const TeamMemberCard = ({ member }: { member: any }) => {
 }
 
 // Location card component
-const LocationCard = ({ location }: { location: any }) => {
+const LocationCard = ({ location }: { location: Location }) => {
   return (
     <motion.div
       className="relative h-40 rounded-xl overflow-hidden group"
@@ -501,7 +548,7 @@ export function RealEstateWebsite() {
   const [activeTab, setActiveTab] = useState("Alle")
   const [priceRange, setPriceRange] = useState([0, 2000000])
   const [sizeRange, setSizeRange] = useState([0, 500])
-  const [selectedProperty, setSelectedProperty] = useState<any>(null)
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [propertyDetailsOpen, setPropertyDetailsOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [filterOpen, setFilterOpen] = useState(false)
@@ -553,7 +600,7 @@ export function RealEstateWebsite() {
   })
 
   // View property details
-  const viewPropertyDetails = (property: any) => {
+  const viewPropertyDetails = (property: Property) => {
     setSelectedProperty(property)
     setPropertyDetailsOpen(true)
   }
@@ -574,27 +621,6 @@ export function RealEstateWebsite() {
         setContactSuccess(false)
       }, 2000)
     }, 1500)
-  }
-
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6 } },
-  }
-
-  const slideUp = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
-  }
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
   }
 
   return (
@@ -802,14 +828,14 @@ export function RealEstateWebsite() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <Input
                       placeholder="Ort, Adresse oder Keyword"
-                      className="pl-10 bg-transparent  text-gray-400 border-gray-200"
+                      className="pl-10 bg-transparent text-gray-400 border-gray-200"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
                   </div>
                 </div>
                 <Select defaultValue="Alle" onValueChange={(value) => setActiveTab(value)}>
-                  <SelectTrigger className="w-full md:w-40 bg-transparent  text-gray-700 border-gray-200">
+                  <SelectTrigger className="w-full md:w-40 bg-transparent text-gray-700 border-gray-200">
                     <SelectValue placeholder="Typ wählen" />
                   </SelectTrigger>
                   <SelectContent className="bg-white border border-gray-200 shadow-md">
@@ -1174,7 +1200,7 @@ export function RealEstateWebsite() {
                       <p className="text-teal-600 text-sm">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-700 italic">{`"${testimonial.text}"`}</p>
                 </motion.div>
               ))}
             </div>
@@ -1303,7 +1329,6 @@ export function RealEstateWebsite() {
           </div>
         </div>
       </section>
-
 
       {/* Property Details Dialog */}
       <Dialog open={propertyDetailsOpen} onOpenChange={setPropertyDetailsOpen}>
