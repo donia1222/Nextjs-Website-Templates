@@ -48,23 +48,26 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       isDragging.current = index
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging.current === null || !trackRef.current) return
+    const handleMouseMove = React.useCallback(
+      (e: MouseEvent) => {
+        if (isDragging.current === null || !trackRef.current) return
 
-      const rect = trackRef.current.getBoundingClientRect()
-      const percentage = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100))
-      updateValue(isDragging.current, getValue(percentage))
-    }
+        const rect = trackRef.current.getBoundingClientRect()
+        const percentage = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100))
+        updateValue(isDragging.current, getValue(percentage))
+      },
+      [updateValue],
+    )
 
-    const handleMouseUp = () => {
+    const handleMouseUp = React.useCallback(() => {
       isDragging.current = null
-    }
+    }, [])
 
     React.useEffect(() => {
       if (defaultValue !== values) {
         setValues(defaultValue)
       }
-    }, [defaultValue])
+    }, [defaultValue, values])
 
     React.useEffect(() => {
       document.addEventListener("mousemove", handleMouseMove)
@@ -73,7 +76,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         document.removeEventListener("mousemove", handleMouseMove)
         document.removeEventListener("mouseup", handleMouseUp)
       }
-    }, [])
+    }, [handleMouseMove, handleMouseUp])
 
     return (
       <div ref={ref} className={cn("relative flex w-full touch-none select-none items-center", className)} {...props}>

@@ -26,6 +26,7 @@ import {
 } from "lucide-react"
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 // Componente de estrellas de valoración
 const RatingStars = ({ rating }: { rating: number }) => {
@@ -527,16 +528,7 @@ export function WebsitePreview() {
     },
   }
 
-  const slideInRight = {
-    hidden: { x: 100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
-  }
-
-  const slideInLeft = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
-  }
-
+  // Removed unused animation variants
   const scaleUp = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
@@ -765,10 +757,7 @@ export function WebsitePreview() {
         ></motion.div>
         <motion.div className="absolute inset-0 overflow-hidden" style={{ scale: heroScale }}>
           <video autoPlay muted loop playsInline className="absolute w-full h-full object-cover">
-            <source
-              src="0_Woman_Skateboarding_1280x720.mp4"
-              type="video/mp4"
-            />
+            <source src="0_Woman_Skateboarding_1280x720.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </motion.div>
@@ -897,12 +886,13 @@ export function WebsitePreview() {
               whileHover={{ y: -10 }}
             >
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all duration-300 z-10"></div>
-              <motion.img
+              <Image
                 src={category.image || "/placeholder.svg"}
                 alt={category.name}
                 className="w-full h-full object-cover"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.6 }}
+                width={300}
+                height={240}
+                style={{ width: "100%", height: "100%" }}
               />
               <div className="absolute inset-0 flex items-center justify-center z-20">
                 <motion.h3
@@ -946,12 +936,13 @@ export function WebsitePreview() {
                 whileHover={{ y: -10 }}
               >
                 <div className="relative h-72 overflow-hidden group">
-                  <motion.img
+                  <Image
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
                     className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
+                    width={300}
+                    height={288}
+                    style={{ width: "100%", height: "100%" }}
                   />
 
                   {/* Product tag */}
@@ -1049,9 +1040,11 @@ export function WebsitePreview() {
               >
                 <div className="flex flex-col md:flex-row gap-6 items-center">
                   <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
-                    <img
+                    <Image
                       src={testimonials[activeTestimonialIndex].image || "/placeholder.svg"}
                       alt={testimonials[activeTestimonialIndex].name}
+                      width={96}
+                      height={96}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -1059,7 +1052,7 @@ export function WebsitePreview() {
                     <div className="mb-2">
                       <RatingStars rating={testimonials[activeTestimonialIndex].rating} />
                     </div>
-                    <p className="text-gray-700 italic mb-4">"{testimonials[activeTestimonialIndex].text}"</p>
+                    <p className="text-gray-700 italic mb-4">{`"${testimonials[activeTestimonialIndex].text}"`}</p>
                     <div>
                       <h4 className="font-bold text-indigo-600">{testimonials[activeTestimonialIndex].name}</h4>
                       <p className="text-gray-500 text-sm">{testimonials[activeTestimonialIndex].location}</p>
@@ -1128,7 +1121,13 @@ export function WebsitePreview() {
                 variants={scaleUp}
                 whileHover={{ scale: 1.03 }}
               >
-                <img src={post || "/placeholder.svg"} alt="Instagram post" className="w-full h-full object-cover" />
+                <Image
+                  src={post || "/placeholder.svg"}
+                  alt="Instagram post"
+                  className="w-full h-full object-cover"
+                  width={200}
+                  height={200}
+                />
                 <div className="absolute inset-0 bg-indigo-600/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <Instagram size={24} className="text-white" />
                 </div>
