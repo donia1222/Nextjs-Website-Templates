@@ -40,6 +40,24 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 
+// Define types
+interface MenuItem {
+  id: number
+  name: string
+  description: string
+  price: number
+  image: string
+  popular?: boolean
+  vegetarian?: boolean
+  vegan?: boolean
+  byGlass?: boolean
+  quantity?: number
+}
+
+interface CartItem extends MenuItem {
+  quantity: number
+}
+
 // Food menu items
 const menuItems = [
   {
@@ -252,7 +270,7 @@ const RatingStars = ({ rating }: { rating: number }) => {
 }
 
 // Food item card component
-const FoodItem = ({ item, onAddToCart }: { item: any; onAddToCart: (item: any) => void }) => {
+const FoodItem = ({ item, onAddToCart }: { item: MenuItem; onAddToCart: (item: MenuItem) => void }) => {
   const [isAdded, setIsAdded] = useState(false)
 
   const handleAddToCart = () => {
@@ -326,10 +344,9 @@ const FoodItem = ({ item, onAddToCart }: { item: any; onAddToCart: (item: any) =
 export function RestaurantWebsite() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0)
   const [reservationOpen, setReservationOpen] = useState(false)
   const [orderOpen, setOrderOpen] = useState(false)
-  const [cartItems, setCartItems] = useState<any[]>([])
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [reservationSuccess, setReservationSuccess] = useState(false)
   const [orderSuccess, setOrderSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -359,23 +376,21 @@ export function RestaurantWebsite() {
   }
 
   // Add item to cart
-  const addToCart = (item: any) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id)
-
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((cartItem) =>
+  const addToCart = (item: MenuItem) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((cartItem) => cartItem.id === item.id)
+      if (existingItem) {
+        return prevItems.map((cartItem) =>
           cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
-        ),
-      )
-    } else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }])
-    }
+        )
+      }
+      return [...prevItems, { ...item, quantity: 1 }]
+    })
   }
 
   // Remove item from cart
   const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id))
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
   // Update item quantity
@@ -385,7 +400,7 @@ export function RestaurantWebsite() {
       return
     }
 
-    setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+    setCartItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
   }
 
   // Calculate cart total
@@ -426,27 +441,6 @@ export function RestaurantWebsite() {
         setCartItems([])
       }, 2000)
     }, 1500)
-  }
-
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6 } },
-  }
-
-  const slideUp = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
-  }
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
   }
 
   return (
