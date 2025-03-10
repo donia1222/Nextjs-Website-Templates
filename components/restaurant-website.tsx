@@ -20,7 +20,6 @@ import {
   Mail,
   Check,
   Loader2,
-  ChevronRight,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -613,16 +612,16 @@ export function RestaurantWebsite() {
               </nav>
 
               <div className="mt-auto flex flex-col gap-3">
-              <Button
-  onClick={() => {
-    setReservationOpen(true)
-    toggleMobileMenu()
-  }}
-  className="bg-red-700 hover:bg-gray-800 w-full rounded-none text-white"
->
-  <Calendar className="h-4 w-4 mr-2 text-white" />
-  Tisch reservieren
-</Button>
+                <Button
+                  onClick={() => {
+                    setReservationOpen(true)
+                    toggleMobileMenu()
+                  }}
+                  className="bg-red-700 hover:bg-gray-800 w-full rounded-none text-white"
+                >
+                  <Calendar className="h-4 w-4 mr-2 text-white" />
+                  Tisch reservieren
+                </Button>
                 <Button
                   onClick={() => {
                     setOrderOpen(true)
@@ -1079,8 +1078,6 @@ export function RestaurantWebsite() {
           </div>
         </div>
       </section>
-
-
 
       {/* Reservation Dialog */}
       <Dialog open={reservationOpen} onOpenChange={setReservationOpen}>
