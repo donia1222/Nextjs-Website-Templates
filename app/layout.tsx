@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans, GeistMono } from 'geist/font'
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import { Analytics } from "@vercel/analytics/react"
 // Configura las fuentes Geist
 // No necesitamos Inter si vamos a usar GeistSans como fuente principal
 
@@ -26,6 +26,7 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
+          <Analytics/>
         </ThemeProvider>
       </body>
     </html>

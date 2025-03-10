@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
+import { motion, AnimatePresence, useScroll, useTransform, useInView, useAnimation } from "framer-motion"
 import {
   Menu,
   X,
@@ -19,9 +19,9 @@ import {
   Mail,
   Check,
   Loader2,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -29,31 +29,31 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+} from "@/components/ui/dialog"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
 
 // Definición de interfaces para tipado
 interface MenuItem {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  popular?: boolean;
-  vegan?: boolean;
-  vegetarian?: boolean;
-  byGlass?: boolean;
+  id: number
+  name: string
+  description: string
+  price: number
+  image: string
+  popular?: boolean
+  vegan?: boolean
+  vegetarian?: boolean
+  byGlass?: boolean
 }
 
 interface CartItem extends MenuItem {
-  quantity: number;
+  quantity: number
 }
 
 // Food menu items
@@ -64,11 +64,9 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
       {
         id: 1,
         name: "Bruschetta",
-        description:
-          "Geröstetes Brot mit Knoblauch, Olivenöl, Salz, Tomaten und Basilikum",
+        description: "Geröstetes Brot mit Knoblauch, Olivenöl, Salz, Tomaten und Basilikum",
         price: 8.95,
-        image:
-          "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?q=80&w=200&auto=format&fit=crop",
         popular: true,
         vegan: true,
       },
@@ -77,18 +75,15 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
         name: "Arancini",
         description: "Gefüllte Reisbällchen mit Paniermehl und frittiert",
         price: 10.95,
-        image:
-          "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?q=80&w=200&auto=format&fit=crop",
         vegetarian: true,
       },
       {
         id: 3,
         name: "Caprese Salat",
-        description:
-          "Frischer Mozzarella, Tomaten und Basilikum mit Salz und Olivenöl gewürzt",
+        description: "Frischer Mozzarella, Tomaten und Basilikum mit Salz und Olivenöl gewürzt",
         price: 12.95,
-        image:
-          "https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=200&auto=format&fit=crop",
         vegetarian: true,
       },
     ],
@@ -99,41 +94,33 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
       {
         id: 4,
         name: "Pizza Margherita",
-        description:
-          "Klassische Pizza mit Tomatensauce, Mozzarella und Basilikum",
+        description: "Klassische Pizza mit Tomatensauce, Mozzarella und Basilikum",
         price: 14.95,
-        image:
-          "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=200&auto=format&fit=crop",
         popular: true,
         vegetarian: true,
       },
       {
         id: 5,
         name: "Spaghetti Carbonara",
-        description:
-          "Spaghetti mit einer cremigen Sauce aus Eiern, Käse, Pancetta und schwarzem Pfeffer",
+        description: "Spaghetti mit einer cremigen Sauce aus Eiern, Käse, Pancetta und schwarzem Pfeffer",
         price: 16.95,
-        image:
-          "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=200&auto=format&fit=crop",
       },
       {
         id: 6,
         name: "Risotto ai Funghi",
-        description:
-          "Cremiges Risotto mit Waldpilzen und Parmesan",
+        description: "Cremiges Risotto mit Waldpilzen und Parmesan",
         price: 18.95,
-        image:
-          "https://images.unsplash.com/photo-1633964913849-96bb09add3f5?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1633964913849-96bb09add3f5?q=80&w=200&auto=format&fit=crop",
         vegetarian: true,
       },
       {
         id: 7,
         name: "Osso Buco",
-        description:
-          "Kalbshaxe geschmort mit Gemüse, Weißwein und Brühe",
+        description: "Kalbshaxe geschmort mit Gemüse, Weißwein und Brühe",
         price: 24.95,
-        image:
-          "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=200&auto=format&fit=crop",
       },
     ],
   },
@@ -143,32 +130,26 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
       {
         id: 8,
         name: "Tiramisu",
-        description:
-          "Kaffeegetränktes italienisches Dessert aus Löffelbiskuits und Mascarpone-Creme",
+        description: "Kaffeegetränktes italienisches Dessert aus Löffelbiskuits und Mascarpone-Creme",
         price: 8.95,
-        image:
-          "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=200&auto=format&fit=crop",
         popular: true,
         vegetarian: true,
       },
       {
         id: 9,
         name: "Panna Cotta",
-        description:
-          "Italienisches Dessert aus gesüßter Sahne mit Gelatine",
+        description: "Italienisches Dessert aus gesüßter Sahne mit Gelatine",
         price: 7.95,
-        image:
-          "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=200&auto=format&fit=crop",
         vegetarian: true,
       },
       {
         id: 10,
         name: "Cannoli",
-        description:
-          "Röhrenförmige Schalen aus frittiertem Teig gefüllt mit süßer, cremiger Füllung",
+        description: "Röhrenförmige Schalen aus frittiertem Teig gefüllt mit süßer, cremiger Füllung",
         price: 6.95,
-        image:
-          "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=200&auto=format&fit=crop",
         vegetarian: true,
       },
     ],
@@ -179,11 +160,9 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
       {
         id: 11,
         name: "Italienische Weinauswahl",
-        description:
-          "Auswahl an feinen italienischen Weinen - rot, weiß und prickelnd",
+        description: "Auswahl an feinen italienischen Weinen - rot, weiß und prickelnd",
         price: 9.95,
-        image:
-          "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=200&auto=format&fit=crop",
         byGlass: true,
       },
       {
@@ -191,8 +170,7 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
         name: "Aperol Spritz",
         description: "Prosecco, Aperol und Sodawasser",
         price: 8.95,
-        image:
-          "https://images.unsplash.com/photo-1527761939622-933c972ea2fb?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1527761939622-933c972ea2fb?q=80&w=200&auto=format&fit=crop",
         popular: true,
       },
       {
@@ -200,13 +178,65 @@ const menuItems: { category: string; items: MenuItem[] }[] = [
         name: "Espresso",
         description: "Starker italienischer Kaffee",
         price: 3.95,
-        image:
-          "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200&auto=format&fit=crop",
         vegan: true,
       },
     ],
   },
-];
+  {
+    category: "Pizzas",
+    items: [
+      {
+        id: 14,
+        name: "Pizza Margherita",
+        description: "Klassische Pizza mit Tomatensauce, Mozzarella und Basilikum",
+        price: 14.95,
+        image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=200&auto=format&fit=crop",
+        popular: true,
+        vegetarian: true,
+      },
+      {
+        id: 15,
+        name: "Pizza Pepperoni",
+        description: "Pizza mit Tomatensauce, Mozzarella und würziger Pepperoni",
+        price: 16.95,
+        image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=200&auto=format&fit=crop",
+        popular: true,
+      },
+      {
+        id: 16,
+        name: "Pizza Quattro Formaggi",
+        description: "Pizza mit vier verschiedenen Käsesorten: Mozzarella, Gorgonzola, Parmesan und Ricotta",
+        price: 18.95,
+        image: "https://images.unsplash.com/photo-1620374645498-af6bd681a0bd?q=80&w=200&auto=format&fit=crop",
+        vegetarian: true,
+      },
+      {
+        id: 17,
+        name: "Pizza Prosciutto e Funghi",
+        description: "Pizza mit Tomatensauce, Mozzarella, Schinken und Pilzen",
+        price: 17.95,
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=200&auto=format&fit=crop",
+      },
+      {
+        id: 18,
+        name: "Pizza Vegetariana",
+        description: "Pizza mit Tomatensauce, Mozzarella und frischem Gemüse der Saison",
+        price: 16.95,
+        image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?q=80&w=200&auto=format&fit=crop",
+        vegetarian: true,
+        vegan: true,
+      },
+      {
+        id: 19,
+        name: "Pizza Diavola",
+        description: "Scharfe Pizza mit Tomatensauce, Mozzarella, scharfer Salami und Chilischoten",
+        price: 17.95,
+        image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?q=80&w=200&auto=format&fit=crop",
+      },
+    ],
+  },
+]
 
 // Testimonials data
 const testimonials = [
@@ -215,26 +245,23 @@ const testimonials = [
     name: "Marco Rossi",
     text: "Das beste italienische Essen außerhalb Italiens! Die Atmosphäre ist authentisch und der Service tadellos.",
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop",
   },
   {
     id: 2,
     name: "Sophie Laurent",
     text: "Ihre hausgemachte Pasta ist zum Sterben. Ich komme seit Jahren hierher und die Qualität enttäuscht nie.",
     rating: 5,
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop",
   },
   {
     id: 3,
     name: "James Wilson",
     text: "Das Reservierungssystem ist so bequem und ihr Takeaway-Service ist prompt. Tolles Essen, toller Service!",
     rating: 4,
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop",
   },
-];
+]
 
 // Gallery images
 const galleryImages = [
@@ -244,42 +271,67 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1560611588-163f49a6cbe9?q=80&w=300&auto=format&fit=crop",
-];
+]
 
 // Animated counter component
 const AnimatedCounter = ({ value, duration = 2 }: { value: number; duration?: number }) => {
-  const [count, setCount] = useState(0);
-  const nodeRef = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(nodeRef, { once: true, amount: 0.5 });
+  const [count, setCount] = useState(0)
+  const nodeRef = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(nodeRef, { once: true, amount: 0.5 })
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) return
 
-    let start = 0;
-    const end = value;
-    const totalFrames = Math.min(end, duration * 60);
+    let start = 0
+    const end = value
+    const totalFrames = Math.min(end, duration * 60)
     const counter = setInterval(() => {
-      start += 1;
-      const progress = start / totalFrames;
-      setCount(Math.floor(progress * end));
+      start += 1
+      const progress = start / totalFrames
+      setCount(Math.floor(progress * end))
 
       if (start === totalFrames) {
-        clearInterval(counter);
-        setCount(end);
+        clearInterval(counter)
+        setCount(end)
       }
-    }, 1000 / 60);
+    }, 1000 / 60)
 
-    return () => clearInterval(counter);
-  }, [value, duration, isInView]);
+    return () => clearInterval(counter)
+  }, [value, duration, isInView])
 
-  return <span ref={nodeRef}>{count.toLocaleString()}</span>;
-};
+  return <span ref={nodeRef}>{count.toLocaleString()}</span>
+}
+
+// Rotating Pizza animation component
+const RotatingPizza = () => {
+  const { scrollYProgress } = useScroll()
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360])
+
+  return (
+    <motion.div
+      className="fixed bottom-10 right-10 z-50 hidden md:block"
+      style={{ rotate }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: 1 }}
+    >
+      <div className="relative w-24 h-24">
+        <Image
+          src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200&auto=format&fit=crop"
+          alt="Pizza"
+          fill
+          className="object-cover rounded-full shadow-lg"
+        />
+      </div>
+    </motion.div>
+  )
+}
 
 // Rating stars component
 const RatingStars = ({ rating }: { rating: number }) => {
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 !== 0;
-  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+  const fullStars = Math.floor(rating)
+  const hasHalfStar = rating % 1 !== 0
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)
 
   return (
     <div className="flex items-center">
@@ -290,37 +342,51 @@ const RatingStars = ({ rating }: { rating: number }) => {
         <Star key={`empty-${i}`} size={16} className="text-gray-300" />
       ))}
     </div>
-  );
-};
+  )
+}
 
 // Food item card component
 const FoodItem = ({ item, onAddToCart }: { item: MenuItem; onAddToCart: (item: MenuItem) => void }) => {
-  const [isAdded, setIsAdded] = useState(false);
+  const [isAdded, setIsAdded] = useState(false)
+  const isPizza = item.name.toLowerCase().includes("pizza")
+  const controls = useAnimation()
 
   const handleAddToCart = () => {
-    setIsAdded(true);
-    onAddToCart(item);
+    setIsAdded(true)
+    onAddToCart(item)
+
+    // Animate pizza items when added to cart
+    if (isPizza) {
+      controls.start({
+        rotate: [0, 20, -20, 10, -10, 0],
+        scale: [1, 1.1, 1],
+        transition: { duration: 0.6 },
+      })
+    }
 
     // Reset the button state after 2 seconds
     setTimeout(() => {
-      setIsAdded(false);
-    }, 2000);
-  };
+      setIsAdded(false)
+    }, 2000)
+  }
 
   return (
     <motion.div
-      className="bg-white rounded-none overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-100"
+      className={`bg-white rounded-none overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-100 ${
+        isPizza ? "border-rose-100" : ""
+      }`}
       whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
+      animate={controls}
     >
       <div className="relative h-48 overflow-hidden">
         <Image
           src={item.image || "/placeholder.svg?height=200&width=200"}
           alt={item.name}
-          className="object-cover"
+          className={`object-cover transition-transform duration-300 ${isPizza ? "hover:scale-110" : ""}`}
           fill
         />
         <div className="absolute top-2 right-2 flex flex-col gap-1">
@@ -343,14 +409,18 @@ const FoodItem = ({ item, onAddToCart }: { item: MenuItem; onAddToCart: (item: M
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start">
-          <h3 className="font-serif text-lg">{item.name}</h3>
+          <h3 className={`font-serif text-lg ${isPizza ? "text-rose-800" : ""}`}>{item.name}</h3>
           <span className="font-serif text-rose-700">${item.price.toFixed(2)}</span>
         </div>
         <p className="text-gray-600 text-sm mt-1 line-clamp-2 font-light">{item.description}</p>
         <motion.button
           onClick={handleAddToCart}
           className={`w-full mt-4 rounded-none text-white flex items-center justify-center py-2 px-4 text-sm ${
-            isAdded ? "bg-green-600 hover:bg-green-700" : "bg-gray-700 hover:bg-gray-800"
+            isAdded
+              ? "bg-green-600 hover:bg-green-700"
+              : isPizza
+                ? "bg-rose-700 hover:bg-rose-800"
+                : "bg-gray-700 hover:bg-gray-800"
           }`}
           whileTap={{ scale: 0.95 }}
           animate={isAdded ? { x: [0, -5, 5, -5, 5, 0] } : {}}
@@ -362,120 +432,121 @@ const FoodItem = ({ item, onAddToCart }: { item: MenuItem; onAddToCart: (item: M
         </motion.button>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
 export function RestaurantWebsite() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [reservationOpen, setReservationOpen] = useState(false);
-  const [orderOpen, setOrderOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [reservationSuccess, setReservationSuccess] = useState(false);
-  const [orderSuccess, setOrderSuccess] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [reservationOpen, setReservationOpen] = useState(false)
+  const [orderOpen, setOrderOpen] = useState(false)
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [reservationSuccess, setReservationSuccess] = useState(false)
+  const [orderSuccess, setOrderSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
-  });
+  })
 
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const heroTextY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3])
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+  const heroTextY = useTransform(scrollYProgress, [0, 1], [0, 100])
 
   // Handle scroll effect for header
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
-    setMobileMenuOpen((prev) => !prev);
-  };
+    setMobileMenuOpen((prev) => !prev)
+  }
 
   // Add item to cart
   const addToCart = (item: MenuItem) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id)
 
     if (existingItem) {
       setCartItems(
         cartItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem,
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
         ),
-      );
+      )
     } else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      setCartItems([...cartItems, { ...item, quantity: 1 }])
     }
-  };
+  }
 
   // Remove item from cart
   const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+    setCartItems(cartItems.filter((item) => item.id !== id))
+  }
 
   // Update item quantity
   const updateQuantity = (id: number, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(id);
-      return;
+      removeFromCart(id)
+      return
     }
 
-    setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity } : item)));
-  };
+    setCartItems(cartItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+  }
 
   // Calculate cart total
-  const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
 
   // Handle reservation submission
   const handleReservationSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault()
+    setIsSubmitting(true)
 
     // Simulate API call
     setTimeout(() => {
-      setIsSubmitting(false);
-      setReservationSuccess(true);
+      setIsSubmitting(false)
+      setReservationSuccess(true)
 
       // Reset form after success
       setTimeout(() => {
-        setReservationOpen(false);
-        setReservationSuccess(false);
-      }, 2000);
-    }, 1500);
-  };
+        setReservationOpen(false)
+        setReservationSuccess(false)
+      }, 2000)
+    }, 1500)
+  }
 
   // Handle order submission
   const handleOrderSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault()
+    setIsSubmitting(true)
 
     // Simulate API call
     setTimeout(() => {
-      setIsSubmitting(false);
-      setOrderSuccess(true);
+      setIsSubmitting(false)
+      setOrderSuccess(true)
 
       // Reset form and cart after success
       setTimeout(() => {
-        setOrderOpen(false);
-        setOrderSuccess(false);
-        setCartItems([]);
-      }, 2000);
-    }, 1500);
-  };
+        setOrderOpen(false)
+        setOrderSuccess(false)
+        setCartItems([])
+      }, 2000)
+    }, 1500)
+  }
 
   return (
     <div className="bg-cream-50 min-h-screen font-sans">
+      <RotatingPizza />
       {/* Header */}
       <motion.header
-
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className={cn(
           "bg-white text-gray-900 p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-md" : "",
@@ -537,7 +608,7 @@ export function RestaurantWebsite() {
           <div className="flex items-center gap-3">
             <motion.button
               onClick={() => setReservationOpen(true)}
-              className="hidden md:flex items-center gap-1 bg-red-700 hover:bg-gray-800 px-6 py-2 rounded-none text-sm font-light tracking-wide text-white transition-colors"
+              className="hidden md:flex items-center gap-1 bg-rose-700 hover:bg-rose-800 px-6 py-2 rounded-none text-sm font-light tracking-wide text-white transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -554,9 +625,13 @@ export function RestaurantWebsite() {
               <ShoppingBag className="h-4 w-4" />
               <span>Jetzt bestellen</span>
               {cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-2 -right-2 bg-rose-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >
                   {cartItems.reduce((total, item) => total + item.quantity, 0)}
-                </span>
+                </motion.span>
               )}
             </motion.button>
 
@@ -634,8 +709,8 @@ export function RestaurantWebsite() {
               <div className="mt-auto flex flex-col gap-3">
                 <Button
                   onClick={() => {
-                    setReservationOpen(true);
-                    toggleMobileMenu();
+                    setReservationOpen(true)
+                    toggleMobileMenu()
                   }}
                   className="bg-red-700 hover:bg-gray-800 w-full rounded-none text-white"
                 >
@@ -644,8 +719,8 @@ export function RestaurantWebsite() {
                 </Button>
                 <Button
                   onClick={() => {
-                    setOrderOpen(true);
-                    toggleMobileMenu();
+                    setOrderOpen(true)
+                    toggleMobileMenu()
                   }}
                   variant="outline"
                   className="bg-white text-gray-800 hover:bg-gray-100 border-gray-700 w-full rounded-none"
@@ -684,11 +759,10 @@ export function RestaurantWebsite() {
             transition={{ duration: 0.7 }}
             style={{ y: heroTextY }}
           >
-            <h2 className="text-4xl md:text-6xl font-serif mb-4 tracking-wide">
-              Authentische Italienische Küche
-            </h2>
+            <h2 className="text-4xl md:text-6xl font-serif mb-4 tracking-wide">Authentische Italienische Küche</h2>
             <p className="text-lg md:text-xl mb-8 font-light tracking-wide">
-              Erleben Sie den Geschmack Italiens im Herzen der Stadt. Frische Zutaten, traditionelle Rezepte und eine elegante Atmosphäre.
+              Erleben Sie den Geschmack Italiens im Herzen der Stadt. Frische Zutaten, traditionelle Rezepte und eine
+              elegante Atmosphäre.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
@@ -781,17 +855,18 @@ export function RestaurantWebsite() {
             <h2 className="text-3xl font-serif mb-4 text-gray-900">Unsere Speisekarte</h2>
             <div className="w-20 h-0.5 bg-rose-700 mx-auto mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto font-light">
-              Entdecken Sie unsere sorgfältig zusammengestellte Speisekarte mit authentischen italienischen Gerichten aus frischesten Zutaten
+              Entdecken Sie unsere sorgfältig zusammengestellte Speisekarte mit authentischen italienischen Gerichten
+              aus frischesten Zutaten
             </p>
           </motion.div>
 
-          <Tabs defaultValue="Vorspeisen" className="w-full">
-            <TabsList className="w-full max-w-2xl mx-auto mb-12 bg-white p-1 border-b border-gray-200">
+          <Tabs defaultValue="Pizzas" className="w-full">
+            <TabsList className="w-full max-w-2xl mx-auto mb-12 bg-white p-1 border-b border-gray-200 overflow-x-auto flex-nowrap">
               {menuItems.map((category) => (
                 <TabsTrigger
                   key={category.category}
                   value={category.category}
-                  className="data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-700 data-[state=active]:bg-transparent rounded-none px-6"
+                  className="data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-700 data-[state=active]:bg-transparent rounded-none px-6 whitespace-nowrap"
                 >
                   {category.category}
                 </TabsTrigger>
@@ -800,11 +875,24 @@ export function RestaurantWebsite() {
 
             {menuItems.map((category) => (
               <TabsContent key={category.category} value={category.category} className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {category.items.map((item) => (
-                    <FoodItem key={item.id} item={item} onAddToCart={addToCart} />
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {category.items.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      <FoodItem item={item} onAddToCart={addToCart} />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </TabsContent>
             ))}
           </Tabs>
@@ -812,7 +900,7 @@ export function RestaurantWebsite() {
           <div className="text-center mt-16">
             <Button
               onClick={() => setOrderOpen(true)}
-              className="bg-gray-300 hover:bg-gray-500 rounded-none px-8"
+              className="bg-rose-700 hover:bg-rose-800 rounded-none px-8"
               size="lg"
             >
               <ShoppingBag className="h-4 w-4 mr-2" />
@@ -835,10 +923,14 @@ export function RestaurantWebsite() {
               <h2 className="text-3xl font-serif mb-6 text-gray-900">Unsere Geschichte</h2>
               <div className="w-20 h-0.5 bg-rose-700 mb-8"></div>
               <p className="mb-6 font-light text-gray-700 leading-relaxed">
-                Gegründet im Jahr 1985 von der Familie Rossi, bringt Trattoria Milano die authentischen Aromen Italiens auf Ihren Tisch. Unsere Rezepte wurden über Generationen weitergegeben und bewahren die traditionellen Kochmethoden und Aromen Norditaliens.
+                Gegründet im Jahr 1985 von der Familie Rossi, bringt Trattoria Milano die authentischen Aromen Italiens
+                auf Ihren Tisch. Unsere Rezepte wurden über Generationen weitergegeben und bewahren die traditionellen
+                Kochmethoden und Aromen Norditaliens.
               </p>
               <p className="mb-8 font-light text-gray-700 leading-relaxed">
-                Wir beziehen die feinsten Zutaten, darunter importierte italienische Produkte und lokal angebaute Bio-Produkte, um Gerichte zu kreieren, die das Wesen der italienischen Küche einfangen. Jede Mahlzeit wird mit Leidenschaft und Liebe zum Detail zubereitet.
+                Wir beziehen die feinsten Zutaten, darunter importierte italienische Produkte und lokal angebaute
+                Bio-Produkte, um Gerichte zu kreieren, die das Wesen der italienischen Küche einfangen. Jede Mahlzeit
+                wird mit Leidenschaft und Liebe zum Detail zubereitet.
               </p>
 
               <div className="grid grid-cols-2 gap-8 mt-12">
@@ -922,9 +1014,7 @@ export function RestaurantWebsite() {
                       <RatingStars rating={testimonial.rating} />
                     </div>
                   </div>
-                  <p className="text-gray-700 italic font-light">
-                    &quot;{testimonial.text}&quot;
-                  </p>
+                  <p className="text-gray-700 italic font-light">&quot;{testimonial.text}&quot;</p>
                 </motion.div>
               ))}
             </div>
@@ -1233,7 +1323,8 @@ export function RestaurantWebsite() {
               </div>
               <h3 className="text-xl font-serif mb-2">Bestellung bestätigt!</h3>
               <p className="text-gray-600 font-light">
-                Wir haben eine Bestätigung an Ihre E-Mail gesendet. Ihr Essen wird in etwa 30 Minuten zur Abholung bereit sein.
+                Wir haben eine Bestätigung an Ihre E-Mail gesendet. Ihr Essen wird in etwa 30 Minuten zur Abholung
+                bereit sein.
               </p>
             </div>
           ) : (
@@ -1397,6 +1488,6 @@ export function RestaurantWebsite() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }
 
