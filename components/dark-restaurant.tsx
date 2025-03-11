@@ -922,7 +922,8 @@ export default function DarkRestaurant() {
                     </div>
                   </div>
                   <RatingStars rating={testimonial.rating} />
-                  <p className="text-gray-300 mt-4 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-300 mt-4 italic">&quot;{testimonial.text}&quot;</p>
+
                 </motion.div>
               ))}
             </div>

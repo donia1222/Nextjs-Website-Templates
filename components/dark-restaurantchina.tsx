@@ -1262,7 +1262,8 @@ export default function DarkRestaurantchina() {
                 <Check className="h-8 w-8 text-green-500" />
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">Reservation Confirmed!</h3>
-              <p className="text-zinc-400">We've sent a confirmation to your email. We look forward to serving you!</p>
+              <p className="text-zinc-400">We&apos;ve sent a confirmation to your email. We look forward to serving you!</p>
+
             </div>
           ) : (
             <form onSubmit={handleReservationSubmit} className="space-y-4">
@@ -1397,8 +1398,9 @@ export default function DarkRestaurantchina() {
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">Order Confirmed!</h3>
               <p className="text-zinc-400">
-                We've sent a confirmation to your email. Your food will be ready for pickup in about 30 minutes.
-              </p>
+  We&apos;ve sent a confirmation to your email. Your food will be ready for pickup in about 30 minutes.
+</p>
+
             </div>
           ) : (
             <form onSubmit={handleOrderSubmit} className="space-y-4">
