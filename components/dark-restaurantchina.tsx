@@ -1031,7 +1031,9 @@ export default function DarkRestaurantchina() {
             </motion.span>
             <h2 className="text-3xl font-bold mb-4 text-white">Contact Us</h2>
             <div className="w-20 h-0.5 bg-orange-600 mx-auto mb-6"></div>
-            <p className="text-zinc-400">We'd love to hear from you</p>
+            <p className="text-zinc-400">We&apos;d love to hear from you</p>
+
+
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
