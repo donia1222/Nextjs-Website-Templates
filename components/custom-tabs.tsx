@@ -79,6 +79,7 @@ export function CustomTabs() {
           </TabsTrigger>
         </TabsList>
       </div>
+      
 
       <div className="relative">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
