@@ -325,6 +325,28 @@ const FoodItemCard = ({ item, onAddToCart }: { item: MenuItem; onAddToCart: (ite
             </Badge>
           )}
         </div>
+
+        {/* Add permanent button below product details */}
+        <Button
+          onClick={handleAddToCart}
+          className={cn(
+            "w-full mt-4 transition-colors duration-300",
+            isAdded ? "bg-green-600 hover:bg-green-700 text-white" : "bg-orange-600 hover:bg-orange-700 text-white",
+          )}
+          disabled={isAdded}
+        >
+          {isAdded ? (
+            <>
+              <Check className="h-4 w-4 mr-2" />
+              Added to Cart
+            </>
+          ) : (
+            <>
+              <ShoppingBag className="h-4 w-4 mr-2" />
+              Add to Cart
+            </>
+          )}
+        </Button>
       </div>
     </motion.div>
   )
@@ -472,7 +494,6 @@ export default function DarkRestaurantchina() {
 
       {/* Header */}
       <motion.header
-
         className={cn(
           "bg-zinc-900/80 backdrop-blur-md text-white p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-lg shadow-black/20" : "",
@@ -1032,8 +1053,6 @@ export default function DarkRestaurantchina() {
             <h2 className="text-3xl font-bold mb-4 text-white">Contact Us</h2>
             <div className="w-20 h-0.5 bg-orange-600 mx-auto mb-6"></div>
             <p className="text-zinc-400">We&apos;d love to hear from you</p>
-
-
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -1264,8 +1283,9 @@ export default function DarkRestaurantchina() {
                 <Check className="h-8 w-8 text-green-500" />
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">Reservation Confirmed!</h3>
-              <p className="text-zinc-400">We&apos;ve sent a confirmation to your email. We look forward to serving you!</p>
-
+              <p className="text-zinc-400">
+                We&apos;ve sent a confirmation to your email. We look forward to serving you!
+              </p>
             </div>
           ) : (
             <form onSubmit={handleReservationSubmit} className="space-y-4">
@@ -1387,8 +1407,8 @@ export default function DarkRestaurantchina() {
 
       {/* Order Dialog */}
       <Dialog open={orderOpen} onOpenChange={setOrderOpen}>
-        <DialogContent className="bg-zinc-900 border-zinc-800 text-white max-w-md">
-          <DialogHeader>
+        <DialogContent className="bg-zinc-900 border-zinc-800 text-white w-full max-w-md mx-auto max-h-[85vh] overflow-hidden flex flex-col p-4 sm:p-6">
+          <DialogHeader className="mb-4">
             <DialogTitle className="text-xl font-bold">Your Order</DialogTitle>
             <DialogDescription className="text-zinc-400">Review your items and complete your order.</DialogDescription>
           </DialogHeader>
@@ -1400,12 +1420,11 @@ export default function DarkRestaurantchina() {
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">Order Confirmed!</h3>
               <p className="text-zinc-400">
-  We&apos;ve sent a confirmation to your email. Your food will be ready for pickup in about 30 minutes.
-</p>
-
+                We&apos;ve sent a confirmation to your email. Your food will be ready for pickup in about 30 minutes.
+              </p>
             </div>
           ) : (
-            <form onSubmit={handleOrderSubmit} className="space-y-4">
+            <form onSubmit={handleOrderSubmit} className="space-y-4 flex-1 overflow-y-auto pr-2">
               {cartItems.length === 0 ? (
                 <div className="text-center py-8">
                   <ShoppingBag className="h-12 w-12 text-zinc-600 mx-auto mb-4" />
@@ -1417,20 +1436,20 @@ export default function DarkRestaurantchina() {
                 </div>
               ) : (
                 <>
-                  <div className="max-h-[300px] overflow-y-auto pr-2">
+                  <div className="space-y-4">
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-center gap-4 py-3 border-b border-zinc-800">
-                        <div className="h-16 w-16 overflow-hidden flex-shrink-0">
+                        <div className="h-16 w-16 overflow-hidden flex-shrink-0 rounded-md">
                           <Image
                             src={item.image || "/placeholder.svg?height=100&width=100"}
                             alt={item.name}
                             width={64}
                             height={64}
-                            className="object-cover"
+                            className="object-cover w-full h-full"
                           />
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-white">{item.name}</h4>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-white truncate">{item.name}</h4>
                           <p className="text-sm text-zinc-400">${item.price.toFixed(2)}</p>
                         </div>
                         <div className="flex items-center gap-2">
@@ -1452,7 +1471,7 @@ export default function DarkRestaurantchina() {
                             +
                           </Button>
                         </div>
-                        <div className="text-right w-20">
+                        <div className="text-right">
                           <div className="font-medium text-white">${(item.price * item.quantity).toFixed(2)}</div>
                           <Button
                             variant="ghost"
@@ -1467,7 +1486,7 @@ export default function DarkRestaurantchina() {
                     ))}
                   </div>
 
-                  <div className="border-t border-zinc-800 pt-4">
+                  <div className="border-t border-zinc-800 pt-4 mt-4">
                     <div className="flex justify-between mb-2">
                       <span className="text-zinc-300">Subtotal</span>
                       <span className="font-medium text-white">${cartTotal.toFixed(2)}</span>
@@ -1534,7 +1553,7 @@ export default function DarkRestaurantchina() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white mt-6"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

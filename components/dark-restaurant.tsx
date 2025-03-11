@@ -532,8 +532,6 @@ export default function DarkRestaurant() {
         )}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-  
-
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {[
@@ -677,7 +675,7 @@ export default function DarkRestaurant() {
         <ImageCarousel images={heroImages} />
 
         <div className="flex items-center justify-center mt-20">
-          <motion.div className="text-center max-w-3xl px-4" style={{ y: heroTextY, opacity: heroOpacity }}>
+          <motion.div className="text-center max-w-3xl px-4 ">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -923,7 +921,6 @@ export default function DarkRestaurant() {
                   </div>
                   <RatingStars rating={testimonial.rating} />
                   <p className="text-gray-300 mt-4 italic">&quot;{testimonial.text}&quot;</p>
-
                 </motion.div>
               ))}
             </div>
@@ -1312,7 +1309,7 @@ export default function DarkRestaurant() {
 
       {/* Order Dialog */}
       <Dialog open={orderOpen} onOpenChange={setOrderOpen}>
-        <DialogContent className="sm:max-w-[500px] bg-gray-900 border-gray-800 text-white">
+        <DialogContent className="sm:max-w-[500px] max-w-[90vw] bg-gray-900 border-gray-800 text-white max-h-[90vh] overflow-auto flex flex-col">
           <DialogHeader>
             <DialogTitle className="font-serif text-xl text-amber-400">Ihre Bestellung</DialogTitle>
             <DialogDescription className="text-gray-300">
@@ -1346,47 +1343,52 @@ export default function DarkRestaurant() {
                 </div>
               ) : (
                 <>
-                  <div className="max-h-[300px] overflow-y-auto pr-2">
+                  <div className="max-h-[40vh] md:max-h-[300px] overflow-y-auto pr-2 flex-grow">
                     {cartItems.map((item) => (
-                      <div key={item.id} className="flex items-center gap-4 py-3 border-b border-gray-800">
-                        <div className="h-16 w-16 overflow-hidden flex-shrink-0">
+                      <div
+                        key={item.id}
+                        className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 py-3 border-b border-gray-800"
+                      >
+                        <div className="h-12 w-12 sm:h-16 sm:w-16 overflow-hidden flex-shrink-0">
                           <Image
                             src={item.image || "/placeholder.svg"}
                             alt={item.name}
                             width={64}
                             height={64}
-                            className="object-cover"
+                            className="object-cover h-full w-full"
                           />
                         </div>
-                        <div className="flex-1">
-                          <h4 className="text-white">{item.name}</h4>
-                          <p className="text-sm text-gray-400">${item.price.toFixed(2)}</p>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-white text-sm sm:text-base truncate">{item.name}</h4>
+                          <p className="text-xs sm:text-sm text-gray-400">${item.price.toFixed(2)}</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2">
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8 border-gray-700 text-white hover:bg-gray-800"
+                            className="h-6 w-6 sm:h-8 sm:w-8 border-gray-700 text-white hover:bg-gray-800"
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           >
                             -
                           </Button>
-                          <span className="w-6 text-center text-white">{item.quantity}</span>
+                          <span className="w-4 sm:w-6 text-center text-white text-sm">{item.quantity}</span>
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8 border-gray-700 text-white hover:bg-gray-800"
+                            className="h-6 w-6 sm:h-8 sm:w-8 border-gray-700 text-white hover:bg-gray-800"
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           >
                             +
                           </Button>
                         </div>
-                        <div className="text-right w-20">
-                          <div className="text-white">${(item.price * item.quantity).toFixed(2)}</div>
+                        <div className="text-right w-16 sm:w-20 ml-auto">
+                          <div className="text-white text-sm sm:text-base">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </div>
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-8 px-2 text-amber-400 hover:text-amber-500 hover:bg-gray-800"
+                            className="h-6 sm:h-8 px-1 sm:px-2 text-xs sm:text-sm text-amber-400 hover:text-amber-500 hover:bg-gray-800"
                             onClick={() => removeFromCart(item.id)}
                           >
                             Entfernen
@@ -1413,7 +1415,7 @@ export default function DarkRestaurant() {
 
                   <Separator className="border-gray-800" />
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4 overflow-y-auto flex-shrink-0">
                     <div>
                       <Label className="text-base font-serif text-white">Abholung oder Lieferung</Label>
                       <RadioGroup defaultValue="pickup" className="mt-2">
@@ -1432,7 +1434,7 @@ export default function DarkRestaurant() {
                       </RadioGroup>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name" className="text-gray-300">
                           Name
@@ -1518,4 +1520,3 @@ export default function DarkRestaurant() {
     </div>
   )
 }
-

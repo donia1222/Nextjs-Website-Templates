@@ -444,6 +444,7 @@ export function RestaurantWebsite() {
   const [reservationSuccess, setReservationSuccess] = useState(false)
   const [orderSuccess, setOrderSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [activeCategory, setActiveCategory] = useState("Pizzas")
 
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -544,8 +545,6 @@ export function RestaurantWebsite() {
       <RotatingPizza />
       {/* Header */}
       <motion.header
-   
-
         className={cn(
           "bg-white text-gray-900 p-4 sticky top-0 z-30 transition-all duration-300",
           scrolled ? "shadow-md" : "",
@@ -859,18 +858,22 @@ export function RestaurantWebsite() {
             </p>
           </motion.div>
 
-          <Tabs defaultValue="Pizzas" className="w-full">
-            <TabsList className="w-full max-w-2xl mx-auto mb-12 bg-white p-1 border-b border-gray-200 overflow-x-auto flex-nowrap">
-              {menuItems.map((category) => (
-                <TabsTrigger
-                  key={category.category}
-                  value={category.category}
-                  className="data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-700 data-[state=active]:bg-transparent rounded-none px-6 whitespace-nowrap"
-                >
-                  {category.category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          <Tabs defaultValue={activeCategory} className="w-full" onValueChange={setActiveCategory}>
+            <div className="relative">
+              <TabsList className="w-full max-w-2xl mx-auto mb-12 bg-white p-1 border-b border-gray-200 flex overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+                {menuItems.map((category) => (
+                  <TabsTrigger
+                    key={category.category}
+                    value={category.category}
+                    className="data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-700 data-[state=active]:bg-transparent rounded-none px-4 sm:px-6 whitespace-nowrap flex-shrink-0 snap-start"
+                  >
+                    {category.category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none md:hidden"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden"></div>
+            </div>
 
             {menuItems.map((category) => (
               <TabsContent key={category.category} value={category.category} className="mt-0">
@@ -1307,7 +1310,7 @@ export function RestaurantWebsite() {
 
       {/* Order Dialog */}
       <Dialog open={orderOpen} onOpenChange={setOrderOpen}>
-        <DialogContent className="sm:max-w-[500px] rounded-none bg-white">
+        <DialogContent className="sm:max-w-[500px] max-w-[95vw] rounded-none bg-white max-h-[90vh] overflow-auto flex flex-col p-4">
           <DialogHeader>
             <DialogTitle className="font-serif text-xl">Ihre Bestellung</DialogTitle>
             <DialogDescription className="font-light">
@@ -1327,7 +1330,7 @@ export function RestaurantWebsite() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleOrderSubmit} className="space-y-4">
+            <form onSubmit={handleOrderSubmit} className="space-y-4 flex flex-col h-full">
               {cartItems.length === 0 ? (
                 <div className="text-center py-8">
                   <ShoppingBag className="h-12 w-12 text-gray-300 mx-auto mb-4" />
@@ -1341,57 +1344,68 @@ export function RestaurantWebsite() {
                 </div>
               ) : (
                 <>
-                  <div className="max-h-[300px] overflow-y-auto pr-2">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="flex items-center gap-4 py-3 border-b">
-                        <div className="h-16 w-16 overflow-hidden flex-shrink-0">
-                          <Image
-                            src={item.image || "/placeholder.svg?height=100&width=100"}
-                            alt={item.name}
-                            width={64}
-                            height={64}
-                            className="object-cover"
-                          />
+                  <div className="flex-grow flex flex-col">
+                    <div className="overflow-y-auto max-h-[50vh] sm:max-h-[70vh] pr-2">
+                      {cartItems.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex flex-col sm:flex-row items-start sm:items-center gap-2 py-3 border-b w-full"
+                        >
+                          <div className="flex items-center gap-2 w-full">
+                            <div className="h-16 w-16 overflow-hidden flex-shrink-0">
+                              <Image
+                                src={item.image || "/placeholder.svg?height=100&width=100"}
+                                alt={item.name}
+                                width={64}
+                                height={64}
+                                className="object-cover h-full w-full"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-serif text-base truncate">{item.name}</h4>
+                              <p className="text-sm text-gray-500 font-light">${item.price.toFixed(2)}</p>
+                            </div>
+                          </div>
+
+                          <div className="flex justify-between items-center w-full mt-2 sm:mt-0 sm:w-auto">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="h-8 w-8 rounded-none"
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              >
+                                -
+                              </Button>
+                              <span className="w-6 text-center">{item.quantity}</span>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="h-8 w-8 rounded-none"
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              >
+                                +
+                              </Button>
+                            </div>
+
+                            <div className="text-right ml-auto">
+                              <div className="font-serif text-base">${(item.price * item.quantity).toFixed(2)}</div>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-8 px-2 text-sm text-rose-700 hover:text-rose-800 hover:bg-rose-50"
+                                onClick={() => removeFromCart(item.id)}
+                              >
+                                Entfernen
+                              </Button>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-serif">{item.name}</h4>
-                          <p className="text-sm text-gray-500 font-light">${item.price.toFixed(2)}</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8 rounded-none"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          >
-                            -
-                          </Button>
-                          <span className="w-6 text-center">{item.quantity}</span>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8 rounded-none"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          >
-                            +
-                          </Button>
-                        </div>
-                        <div className="text-right w-20">
-                          <div className="font-serif">${(item.price * item.quantity).toFixed(2)}</div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 px-2 text-rose-700 hover:text-rose-800 hover:bg-rose-50"
-                            onClick={() => removeFromCart(item.id)}
-                          >
-                            Entfernen
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="border-t pt-4">
+                  <div className="border-t pt-4 mt-auto flex-shrink-0">
                     <div className="flex justify-between mb-2">
                       <span className="font-light">Zwischensumme</span>
                       <span className="font-serif">${cartTotal.toFixed(2)}</span>
@@ -1406,9 +1420,9 @@ export function RestaurantWebsite() {
                     </div>
                   </div>
 
-                  <Separator />
+                  <Separator className="flex-shrink-0" />
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4 flex-shrink-0">
                     <div>
                       <Label className="text-base font-serif">Abholung oder Lieferung</Label>
                       <RadioGroup defaultValue="pickup" className="mt-2">
@@ -1427,7 +1441,7 @@ export function RestaurantWebsite() {
                       </RadioGroup>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name" className="font-light">
                           Name
@@ -1464,7 +1478,7 @@ export function RestaurantWebsite() {
                     </div>
                   </div>
 
-                  <DialogFooter>
+                  <DialogFooter className="flex-shrink-0">
                     <Button
                       type="submit"
                       className="w-full bg-gray-700 hover:bg-gray-800 rounded-none"
@@ -1489,4 +1503,3 @@ export function RestaurantWebsite() {
     </div>
   )
 }
-
