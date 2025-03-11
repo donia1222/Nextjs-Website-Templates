@@ -35,7 +35,7 @@ export function CustomTabs() {
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full overflow-hidden">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 py-6">
         <TabsList className="grid w-full max-w-3xl mx-auto grid-cols-5 p-1 rounded-xl mb-10">
           <TabsTrigger
             value="restaurant"
@@ -102,13 +102,13 @@ export function CustomTabs() {
         ) : (
           <div className="w-full overflow-x-hidden">
             <TabsContent value="ecommerce" className="m-0 transition-all duration-500 animate-in fade-in max-w-full">
-              <div className="container mx-auto px-4">
+              <div className="container mx-auto px-2">
                 <WebsitePreview />
               </div>
             </TabsContent>
 
             <TabsContent value="restaurant" className="m-0 transition-all duration-500 animate-in fade-in max-w-full">
-              <div className="container mx-auto px-4">
+              <div className="container mx-auto px-2">
                 <div className="flex justify-center flex-wrap gap-2 mb-6">
                   <Button
                     onClick={() => handleRestaurantTemplateChange("template1")}
@@ -153,19 +153,19 @@ export function CustomTabs() {
             </TabsContent>
 
             <TabsContent value="gym" className="m-0 transition-all duration-500 animate-in fade-in max-w-full">
-              <div className="container mx-auto px-4">
+              <div className="container mx-auto px-2">
                 <GymWebsite />
               </div>
             </TabsContent>
 
             <TabsContent value="realestate" className="m-0 transition-all duration-500 animate-in fade-in max-w-full">
-              <div className="container mx-auto px-4">
+              <div className="container mx-auto px-2">
                 <RealEstateWebsite />
               </div>
             </TabsContent>
 
             <TabsContent value="construction" className="m-0 transition-all duration-500 animate-in fade-in max-w-full">
-              <div className="container mx-auto px-4">
+              <div className="container mx-auto px-2">
                 <ConstructionWebsite />
               </div>
             </TabsContent>
