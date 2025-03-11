@@ -675,7 +675,7 @@ export default function DarkRestaurant() {
         <ImageCarousel images={heroImages} />
 
         <div className="flex items-center justify-center mt-20">
-          <motion.div className="text-center max-w-3xl px-4 ">
+          <motion.div className="text-center max-w-3xl px-4" style={{ y: heroTextY, opacity: heroOpacity }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
