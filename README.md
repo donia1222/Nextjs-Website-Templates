@@ -10,7 +10,7 @@ Collection of modern and responsive website templates developed with Next.js. Th
 
 ## Demo
 
-Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates-gzm35bans-info-lwebchs-projects.vercel.app)
+Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates.vercel.app)
 
 ## Features
 
@@ -43,7 +43,7 @@ Collection of modern and responsive website templates developed with Next.js. Th
 
 ## Demo
 
-Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates-gzm35bans-info-lwebchs-projects.vercel.app)
+Check out the live demo: [Next.js Website Templates](https://nextjs-website-templates.vercel.app)
 
 ## Features
 
