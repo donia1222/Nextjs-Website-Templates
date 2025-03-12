@@ -26,8 +26,9 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
-          <Analytics/>
+ 
         </ThemeProvider>
+        <Analytics/>
       </body>
     </html>
   )
