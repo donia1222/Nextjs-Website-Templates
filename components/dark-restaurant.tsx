@@ -79,7 +79,7 @@ const menuItems: MenuItem[] = [
     name: "Trüffel-Risotto",
     description: "Cremiger Arborio-Reis mit Waldpilzen und Trüffelöl",
     price: 16.95,
-    image: "https://images.unsplash.com/photo-1633964913849-96bb09add3f5?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/high-angle-tasty-truffle-recipe_23-2149525124.jpg?t=st=1742167257~exp=1742170857~hmac=e287d60a7fa4df892cd54fb77088bd2ec98ed5a498653524a93dd7aceb0d567d&w=900",
     vegetarian: true,
     category: "starters",
   },
@@ -113,7 +113,7 @@ const menuItems: MenuItem[] = [
     name: "Pilz-Wellington",
     description: "Portobello-Pilze mit Spinat und Ziegenkäse im Blätterteig",
     price: 28.95,
-    image: "https://images.unsplash.com/photo-1673852838126-4a9b8621f4a7?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/plate-mushroom-risotto-topped-with-grated-cheese_141793-469.jpg?t=st=1742167214~exp=1742170814~hmac=ebc48aac6f71d763968b07d2758f3f5fa24c69f16b5eea0e67453405506a9173&w=740",
     vegetarian: true,
     vegan: true,
     category: "mains",
@@ -123,7 +123,7 @@ const menuItems: MenuItem[] = [
     name: "Lammkarree",
     description: "Kräuter-Lammkarree mit Minzjus und Kartoffelgratin",
     price: 38.95,
-    image: "https://images.unsplash.com/photo-1514516345957-556ca7c90a34?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/grilled-lamb-ribs-close-up_23-2148516959.jpg?t=st=1742167292~exp=1742170892~hmac=570240f0f1d2c8cc193ee115d1a29f761c47fe02b172f2037112d1554c0485de&w=996",
     category: "mains",
   },
   {
@@ -207,7 +207,7 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1515669097368-22e68427d265?q=80&w=300&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1554306274-f23873d9a26c?q=80&w=300&auto=format&fit=crop",
+  "https://img.freepik.com/free-photo/grilled-lamb-ribs-close-up_23-2148516959.jpg?t=st=1742167292~exp=1742170892~hmac=570240f0f1d2c8cc193ee115d1a29f761c47fe02b172f2037112d1554c0485de&w=996",
 ]
 
 // Animated number component

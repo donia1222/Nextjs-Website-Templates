@@ -270,7 +270,7 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=300&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1560611588-163f49a6cbe9?q=80&w=300&auto=format&fit=crop",
+  "https://img.freepik.com/free-photo/cheesy-tokbokki-korean-traditional-food-black-board-background-lunch-dish_1150-42995.jpg?t=st=1742167767~exp=1742171367~hmac=0e3c8579cf6fccd007ec40d0ced99ba4c64f8d70c569f0f194cc341923402eee&w=996",
 ]
 
 // Animated counter component

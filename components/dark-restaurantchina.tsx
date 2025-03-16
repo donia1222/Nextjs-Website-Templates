@@ -87,7 +87,7 @@ const menuItems: MenuItem[] = [
     name: "Gyoza",
     description: "Pan-fried pork and vegetable dumplings, served with dipping sauce",
     price: 8.5,
-    image: "https://images.unsplash.com/photo-1534422646206-10d6564395c5?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/side-view-traditional-asian-dumplings-with-meat-vegetables-served-with-soy-sauce-plate-rustic_141793-11562.jpg?t=st=1742167365~exp=1742170965~hmac=0a0abb6a51af6cfdcb074ef88e2791b1d79fd0755841029e80d4863c521d3655&w=996",
     category: "Appetizers",
     featured: true,
   },
@@ -96,7 +96,7 @@ const menuItems: MenuItem[] = [
     name: "Karaage",
     description: "Japanese fried chicken, marinated in soy, ginger, and garlic",
     price: 9.5,
-    image: "https://images.unsplash.com/photo-1678794744154-3faf95b13986?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/top-view-delicious-chicken-table_23-2150857802.jpg?t=st=1742167452~exp=1742171052~hmac=7875a07fd0c21c0e634c5d59aac8f686dfdf15d3cc2b2fb04d01a2d92ff13fc6&w=1380",
     category: "Appetizers",
   },
   {
@@ -104,7 +104,7 @@ const menuItems: MenuItem[] = [
     name: "Kimchi",
     description: "Spicy fermented napa cabbage with Korean seasonings",
     price: 5.5,
-    image: "https://images.unsplash.com/photo-1583224964978-2d1a9675e5d8?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/chinese-cabbage-kimchi-cabbage-korean-traditional-food_2829-7154.jpg?t=st=1742167480~exp=1742171080~hmac=8c1e5d1a839c61d84f8a9b6ac604cc22b9faf875988f5d5cfd1f256165b8787e&w=740",
     category: "Appetizers",
     spicy: true,
     vegan: true,
@@ -160,7 +160,7 @@ const menuItems: MenuItem[] = [
     name: "Tonkatsu",
     description: "Breaded and deep-fried pork cutlet with tonkatsu sauce and cabbage",
     price: 17.5,
-    image: "https://images.unsplash.com/photo-1632707531698-37df7d36cb04?q=80&w=200&auto=format&fit=crop",
+    image: "https://img.freepik.com/free-photo/japanese-sandwich-with-breaded-pork-chop-cabbage-tonkatsu-sauce_2829-18626.jpg?t=st=1742167509~exp=1742171109~hmac=74ce825d35b0b9e6ba43499e9b6c28d80acc0d64b4998004fcf015b4d01e6edb&w=996",
     category: "Main Dishes",
   },
 ]
@@ -195,9 +195,9 @@ const galleryImages = [
   "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1614563637806-1d0e645e0940?q=80&w=300&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=300&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1562158074-d60fbfc00b88?q=80&w=300&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1599028267346-4cb90f37cc0e?q=80&w=300&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1584224568533-da65f6e7d4f8?q=80&w=300&auto=format&fit=crop",
+  "https://img.freepik.com/free-photo/cheesy-tokbokki-korean-traditional-food-black-board-background-lunch-dish_1150-42995.jpg?t=st=1742167767~exp=1742171367~hmac=0e3c8579cf6fccd007ec40d0ced99ba4c64f8d70c569f0f194cc341923402eee&w=996",
+  "https://img.freepik.com/free-photo/toriyaki-chicken-dark-surface_1150-42005.jpg?t=st=1742167615~exp=1742171215~hmac=15419c4cbc3cbc5192fe1c454f46dddc57e334112386c6e662a81fff5b65347a&w=996",
+  "https://img.freepik.com/free-photo/japanese-sandwich-with-breaded-pork-chop-cabbage-tonkatsu-sauce_2829-18626.jpg?t=st=1742167509~exp=1742171109~hmac=74ce825d35b0b9e6ba43499e9b6c28d80acc0d64b4998004fcf015b4d01e6edb&w=996",
 ]
 
 // Menu categories
@@ -903,7 +903,7 @@ export default function DarkRestaurantchina() {
               transition={{ duration: 0.6 }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1511689736575-02865d287c70?q=80&w=600&auto=format&fit=crop"
+                src="https://img.freepik.com/free-photo/japanese-sandwich-with-breaded-pork-chop-cabbage-tonkatsu-sauce_2829-18626.jpg?t=st=1742167509~exp=1742171109~hmac=74ce825d35b0b9e6ba43499e9b6c28d80acc0d64b4998004fcf015b4d01e6edb&w=996"
                 alt="Chef preparing ramen"
                 fill
                 className="object-cover"
